@@ -1,8 +1,11 @@
 // Define the menu items
 export const mainMenu = {
-  home: "/",
-  about: "https://github.com/9d8dev/next-wp",
-  blog: "/posts",
+  hjem: "/",
+  events: "/events",
+  galleri: "/gallery",
+  "om os": "/om-os",
+  praktisk: "/praktisk",
+  kontakt: "/kontakt",
 };
 
 export const contentMenu = {

@@ -1,6 +1,7 @@
 // Craft Imports
 import { Section, Container, Prose } from "@/components/craft";
 import Balancer from "react-wrap-balancer";
+import DiscoBall from "@/public/favicon_dark.svg";
 
 // Next.js Imports
 import Link from "next/link";
@@ -9,57 +10,88 @@ import Link from "next/link";
 import { File, Pen, Tag, Diamond, User, Folder } from "lucide-react";
 import { WordPressIcon } from "@/components/icons/wordpress";
 import { NextJsIcon } from "@/components/icons/nextjs";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 // This page is using the craft.tsx component and design system
 export default function Home() {
   return (
-    <Section>
+    <Section className="py-0 md:py-0">
+      <div className="min-h-[50vh] relative">
+        <video playsInline={true} autoPlay={true} muted={true} loop={true} className="absolute top-0 left-0 w-full h-full object-cover">
+          <source type="video/mp4" src="https://spotfestival.dk/wp-content/uploads/2025/05/Web-front・Billede-og-video-2.mp4" />
+          <source type="video/mp4" src="https://cms.roskilde-festival.dk/media/dlwnti3p/aftermovie-til-hjemmesidecover-1.mp4" />
+        </video>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-bold italic text-white text-center" style={{
+          fontSize: "clamp(2rem, 10vw, 7rem)",
+        }}>
+          <p>Oplev vores næste event!</p>
+        </div>
+      </div>
       <Container>
-        <ToDelete />
+        {/* <ToDelete /> */}
+
+        <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-wrap gap-4 justify-center items-center">
+            <div className="flex-1 p-6 border rounded-lg mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
+              <span>23</span>
+              <span className="text-3xl">events</span>
+            </div>
+            <div className="flex-1 p-6 border rounded-lg mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
+              <span>5</span>
+              <span className="text-3xl">projekter</span>
+            </div>
+            <div className="flex-1 p-6 border rounded-lg mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
+              <span>30+</span>
+              <span className="text-3xl">artister</span>
+            </div>
+            <div className="flex-1 p-6 border rounded-lg mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
+              <span>1000+</span>
+              <span className="text-3xl">publikum</span>
+            </div>
+          </div>
+          <Button className="mt-6 text-2xl" asChild>
+            <Link href="/events">Se alle events</Link>
+          </Button>
+        </div>
+
+        {/* <div>
+          <Image
+            src={DiscoBall}
+            alt="Logo"
+            loading="eager"
+            className="dark:invert"
+            width={300}
+          ></Image>
+        </div> */}
         
-        {/* New Examples Section */}
         <div className="mt-16">
-          <Prose>
+          {/* <Prose>
             <h2>Examples</h2>
             <p>Explore these example implementations of the WordPress API integration.</p>
-          </Prose>
+          </Prose> */}
 
-          <div className="grid md:grid-cols-2 gap-4 mt-6">
+          <div className="grid gap-4 mt-6 md:grid-cols-3">
             <Link
-              className="border h-48 bg-accent/50 rounded-lg p-4 flex flex-col justify-between hover:scale-[1.02] transition-all"
-              href="/authors/featured"
+              className="border rounded-lg p-4 hover:shadow-lg transition-all"
+              href="/events"
             >
-              <User size={32} />
-              <span>
-                Featured Authors{" "}
-                <span className="block text-sm text-muted-foreground">
-                  Showcase of top authors and their recent posts
-                </span>
-              </span>
+              <div className="h-48 bg-cover bg-center rounded-lg" style={{ backgroundImage: "url('https://images.pexels.com/photos/1540338/pexels-photo-1540338.jpeg')" }}></div>
+              <span className="mt-2 block text-xl font-semibold">Events</span>
             </Link>
             <Link
-              className="border h-48 bg-accent/50 rounded-lg p-4 flex flex-col justify-between hover:scale-[1.02] transition-all"
-              href="/trending"
+              className="border rounded-lg p-4 hover:shadow-lg transition-all"
+              href="/projects"
             >
-              <Diamond size={32} />
-              <span>
-                Trending Topics{" "}
-                <span className="block text-sm text-muted-foreground">
-                  Discover popular categories and tags across the blog
-                </span>
-              </span>
+              <div className="h-48 bg-cover bg-center rounded-lg" style={{ backgroundImage: "url('https://images.pexels.com/photos/2388569/pexels-photo-2388569.jpeg')" }}></div>
+              <span className="mt-2 block text-xl font-semibold">Projekter</span>
             </Link>
             <Link
-              className="border h-48 bg-accent/50 rounded-lg p-4 flex flex-col justify-between hover:scale-[1.02] transition-all"
-              href="/posts/explore"
+              className="border rounded-lg p-4 hover:shadow-lg transition-all"
+              href="/artists"
             >
-              <Tag size={32} />
-              <span>
-                Post Explorer{" "}
-                <span className="block text-sm text-muted-foreground">
-                  Interactive explorer for related content discovery
-                </span>
-              </span>
+              <div className="h-48 bg-cover bg-center rounded-lg" style={{ backgroundImage: "url('https://images.pexels.com/photos/7586651/pexels-photo-7586651.jpeg')" }}></div>
+              <span className="mt-2 block text-xl font-semibold">Artister</span>
             </Link>
           </div>
         </div>
