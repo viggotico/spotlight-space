@@ -12,7 +12,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { siteConfig } from "@/site.config";
 
 import Balancer from "react-wrap-balancer";
-import Logo from "@/public/logo_black.svg";
+import Logo1 from "@/public/logo1_black.svg";
 import Logo2 from "@/public/logo2_black.svg";
 import Image from "next/image";
 import Link from "next/link";
@@ -73,7 +73,7 @@ const Nav = ({ className, children, id }: { className?: string; children?: React
           href="/"
         >
           <Image
-            src={Logo}
+            src={Logo1}
             alt="Logo"
             loading="eager"
             className="dark:invert"
@@ -82,7 +82,7 @@ const Nav = ({ className, children, id }: { className?: string; children?: React
         </Link>
         {children}
         <div className="flex items-center gap-2">
-          <div className="mx-2 hidden md:flex">
+          {/* <div className="mx-2 hidden md:flex">
             {Object.entries(mainMenu).map(([key, href]) => (
               <Button key={href} asChild variant="ghost" size="sm" className="lg:text-2xl">
                 <Link href={href}>
@@ -90,7 +90,7 @@ const Nav = ({ className, children, id }: { className?: string; children?: React
                 </Link>
               </Button>
             ))}
-          </div>
+          </div> */}
           <MobileNav />
         </div>
       </div>
@@ -100,14 +100,13 @@ const Nav = ({ className, children, id }: { className?: string; children?: React
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="bg-muted">
       <Section>
-        <Container className="grid md:grid-cols-[0.75fr.75fr.75fr] gap-12">
-          <div className="flex flex-col gap-2 text-sm">
-            <h5 className="font-medium text-base">Website</h5>
+        <Container className="grid md:grid-cols-[0.5fr.5fr.75fr] gap-12 text-4xl">
+          <div className="flex flex-col gap-2">
             {Object.entries(mainMenu).map(([key, href]) => (
               <Link
-                className="hover:underline underline-offset-4"
+                className="hover:underline underline-offset-4 w-fit"
                 key={href}
                 href={href}
               >
@@ -115,11 +114,10 @@ const Footer = () => {
               </Link>
             ))}
           </div>
-          <div className="flex flex-col gap-2 text-sm">
-            <h5 className="font-medium text-base">Blog</h5>
+          <div className="flex flex-col gap-2">
             {Object.entries(contentMenu).map(([key, href]) => (
               <Link
-                className="hover:underline underline-offset-4"
+                className="hover:underline underline-offset-4 w-fit"
                 key={href}
                 href={href}
               >
@@ -128,7 +126,7 @@ const Footer = () => {
             ))}
           </div>
           <div className="flex flex-col gap-6 not-prose">
-            <Link href="/">
+            <Link href="/" className="w-fit">
               <h3 className="sr-only">{siteConfig.site_name}</h3>
               <Image
                 src={Logo2}
@@ -137,7 +135,7 @@ const Footer = () => {
                 width={300}
               ></Image>
             </Link>
-            <p>
+            <p className="text-2xl">
               <Balancer>{siteConfig.site_description}</Balancer>
             </p>
           </div>

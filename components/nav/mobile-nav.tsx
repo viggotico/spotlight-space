@@ -1,15 +1,15 @@
 "use client";
 
-// React and Next Imports
 import * as React from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
-// Utility Imports
-import { Menu, ArrowRightSquare } from "lucide-react";
+import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Component Imports
+import LogoBadge from "@/public/badge_black.svg";
+
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -19,10 +19,8 @@ import {
   SheetTitle,
   SheetHeader,
 } from "@/components/ui/sheet";
-import { Separator } from "@/components/ui/separator";
 
-import { mainMenu, contentMenu } from "@/menu.config";
-import { siteConfig } from "@/site.config";
+import { mainMenu } from "@/menu.config";
 
 export function MobileNav() {
   const [open, setOpen] = React.useState(false);
@@ -31,14 +29,15 @@ export function MobileNav() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
+          size={'lg'}
           variant="ghost"
-          className="px-0 border w-10 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+          className="px-0 w-10 text-base hover:bg-transparent hover:text-primary"
         >
-          <Menu />
+          <Menu className="h-[4rem] w-[4rem]" />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="pr-0">
+      <SheetContent side="top" className="pr-0">
         <SheetHeader>
           <SheetTitle className="text-left">
             <MobileLink
@@ -46,24 +45,20 @@ export function MobileNav() {
               className="flex items-center"
               onOpenChange={setOpen}
             >
-              <ArrowRightSquare className="mr-2 h-4 w-4" />
-              <span>{siteConfig.site_name}</span>
+              <Image
+                src={LogoBadge}
+                alt="Logo"
+                loading="eager"
+                className="dark:invert"
+                height={100}
+              ></Image>
             </MobileLink>
           </SheetTitle>
         </SheetHeader>
-        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
-          <div className="flex flex-col space-y-3">
-            <h3 className="text-small mt-6">Menu</h3>
-            <Separator />
+        <ScrollArea className="my-4 h-[70vh] pb-10 pl-6">
+          <div className="flex flex-col items-center space-y-3 text-center gap-4">
             {Object.entries(mainMenu).map(([key, href]) => (
-              <MobileLink key={key} href={href} onOpenChange={setOpen}>
-                {key.charAt(0).toUpperCase() + key.slice(1)}
-              </MobileLink>
-            ))}
-            <h3 className="text-small pt-6">Blog Menu</h3>
-            <Separator />
-            {Object.entries(contentMenu).map(([key, href]) => (
-              <MobileLink key={key} href={href} onOpenChange={setOpen}>
+              <MobileLink key={key} href={href} onOpenChange={setOpen} className="text-8xl hover:text-primary w-fit px-10">
                 {key.charAt(0).toUpperCase() + key.slice(1)}
               </MobileLink>
             ))}

@@ -5,7 +5,7 @@ type SiteConfig = {
 };
 
 export const siteConfig: SiteConfig = {
-  site_name: process.env.SITE_NAME || "sidenavn",
-  site_description: process.env.SITE_DESCRIPTION || "side description",
-  site_domain: process.env.SITE_DOMAIN || "https://site-domain.com",
+  site_name: process.env.SITE_NAME || "Spotlight Space",
+  site_description: process.env.SITE_DESCRIPTION || "Oplev fremtidens musik i Aarhus. Spotlight Space er Danmarks platform for artister i vækstlaget. Vi giver upcoming talenter et rampelys. Udforsk events og artister!",
+  site_domain: process.env.SITE_DOMAIN || "http://localhost:3000/",
 };

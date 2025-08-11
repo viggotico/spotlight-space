@@ -1,7 +1,7 @@
 // Craft Imports
+import { siteConfig } from "@/site.config";
 import { Section, Container, Prose } from "@/components/craft";
 import Balancer from "react-wrap-balancer";
-import DiscoBall from "@/public/favicon_dark.svg";
 
 // Next.js Imports
 import Link from "next/link";
@@ -11,7 +11,6 @@ import { File, Pen, Tag, Diamond, User, Folder } from "lucide-react";
 import { WordPressIcon } from "@/components/icons/wordpress";
 import { NextJsIcon } from "@/components/icons/nextjs";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 
 // This page is using the craft.tsx component and design system
 export default function Home() {
@@ -23,75 +22,58 @@ export default function Home() {
           <source type="video/mp4" src="https://cms.roskilde-festival.dk/media/dlwnti3p/aftermovie-til-hjemmesidecover-1.mp4" />
         </video>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-bold italic text-white text-center" style={{
-          fontSize: "clamp(2rem, 10vw, 7rem)",
+          fontSize: "clamp(2rem, 10vw, 3rem)",
         }}>
           <p>Oplev vores næste event!</p>
         </div>
       </div>
       <Container>
-        {/* <ToDelete /> */}
-
         <div className="flex flex-col justify-center items-center">
+          <p className="text-2xl text-center max-w-[70vw]">
+            <Balancer>{siteConfig.site_description}</Balancer>
+          </p>
           <div className="flex flex-wrap gap-4 justify-center items-center">
-            <div className="flex-1 p-6 border rounded-lg mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
+            <div className="flex-1 p-6 border rounded-lg border-[hsl(var(--primary))] mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
               <span>23</span>
               <span className="text-3xl">events</span>
             </div>
-            <div className="flex-1 p-6 border rounded-lg mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
+            <div className="flex-1 p-6 border rounded-lg border-[hsl(var(--primary))] mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
               <span>5</span>
               <span className="text-3xl">projekter</span>
             </div>
-            <div className="flex-1 p-6 border rounded-lg mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
+            <div className="flex-1 p-6 border rounded-lg border-[hsl(var(--primary))] mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
               <span>30+</span>
               <span className="text-3xl">artister</span>
             </div>
-            <div className="flex-1 p-6 border rounded-lg mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
+            <div className="flex-1 p-6 border rounded-lg border-[hsl(var(--primary))] mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
               <span>1000+</span>
               <span className="text-3xl">publikum</span>
             </div>
           </div>
-          <Button className="mt-6 text-2xl" asChild>
-            <Link href="/events">Se alle events</Link>
-          </Button>
         </div>
 
-        {/* <div>
-          <Image
-            src={DiscoBall}
-            alt="Logo"
-            loading="eager"
-            className="dark:invert"
-            width={300}
-          ></Image>
-        </div> */}
-        
         <div className="mt-16">
-          {/* <Prose>
-            <h2>Examples</h2>
-            <p>Explore these example implementations of the WordPress API integration.</p>
-          </Prose> */}
-
-          <div className="grid gap-4 mt-6 md:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-3">
             <Link
-              className="border rounded-lg p-4 hover:shadow-lg transition-all"
+              className="relative hover:scale-[1.02] transition-all aspect-[1/1]"
               href="/events"
             >
-              <div className="h-48 bg-cover bg-center rounded-lg" style={{ backgroundImage: "url('https://images.pexels.com/photos/1540338/pexels-photo-1540338.jpeg')" }}></div>
-              <span className="mt-2 block text-xl font-semibold">Events</span>
+              <div className="h-full bg-cover bg-center rounded-md brightness-50 hover:brightness-100 transition-all" style={{ backgroundImage: "url('https://images.pexels.com/photos/1540338/pexels-photo-1540338.jpeg')" }}></div>
+              <h1 className="block text-7xl text-white font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">Events</h1>
             </Link>
             <Link
-              className="border rounded-lg p-4 hover:shadow-lg transition-all"
+              className="relative hover:scale-[1.02] transition-all aspect-[1/1]"
               href="/projects"
             >
-              <div className="h-48 bg-cover bg-center rounded-lg" style={{ backgroundImage: "url('https://images.pexels.com/photos/2388569/pexels-photo-2388569.jpeg')" }}></div>
-              <span className="mt-2 block text-xl font-semibold">Projekter</span>
+              <div className="h-full bg-cover bg-center rounded-md brightness-50 hover:brightness-100 transition-all" style={{ backgroundImage: "url('https://images.pexels.com/photos/2388569/pexels-photo-2388569.jpeg')" }}></div>
+              <h1 className="block text-7xl text-white font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">Projekter</h1>
             </Link>
             <Link
-              className="border rounded-lg p-4 hover:shadow-lg transition-all"
+              className="relative hover:scale-[1.02] transition-all aspect-[1/1]"
               href="/artists"
             >
-              <div className="h-48 bg-cover bg-center rounded-lg" style={{ backgroundImage: "url('https://images.pexels.com/photos/7586651/pexels-photo-7586651.jpeg')" }}></div>
-              <span className="mt-2 block text-xl font-semibold">Artister</span>
+              <div className="h-full bg-cover bg-center rounded-md brightness-50 hover:brightness-100 transition-all" style={{ backgroundImage: "url('https://images.pexels.com/photos/7586651/pexels-photo-7586651.jpeg')" }}></div>
+              <h1 className="block text-7xl text-white font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">Artister</h1>
             </Link>
           </div>
         </div>
