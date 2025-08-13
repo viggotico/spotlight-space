@@ -53,7 +53,7 @@ export const useActiveSegment = (props: useActiveSegmentProps) => {
         el.classList.remove("text-secondary");
       }
     }, 250);
-  }, [pathname, enabled]);
+  }, [pathname, enabled, sortedSegments]);
 }
 
 export function NavbarContent() {

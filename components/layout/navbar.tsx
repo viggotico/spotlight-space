@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -9,11 +11,21 @@ import Link from "next/link";
 import { NavbarContent } from "@/components/layout/navbar-content";
 
 import Logo1 from "@/public/logo1_black.svg";
-import { useState } from "react";
 
 export const Navbar = ({ className, children, id }: { className?: string; children?: React.ReactNode; id?: string }) => {
-    const [vw] = useState(window.innerWidth || 0);
+    const [vw, setVw] = useState(0);
     const [isMobile] = useState(vw < 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setVw(window.innerWidth);
+        };
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     return (
         <nav
