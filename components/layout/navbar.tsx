@@ -14,11 +14,12 @@ import Logo1 from "@/public/logo1_black.svg";
 
 export const Navbar = ({ className, children, id }: { className?: string; children?: React.ReactNode; id?: string }) => {
     const [vw, setVw] = useState(0);
-    const [isMobile] = useState(vw < 768);
+    const [isMobile, setIsMobile] = useState(vw < 768);
 
     useEffect(() => {
         const handleResize = () => {
             setVw(window.innerWidth);
+            setIsMobile(window.innerWidth < 768);
         };
         handleResize();
         window.addEventListener("resize", handleResize);
