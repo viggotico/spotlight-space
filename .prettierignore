@@ -1,0 +1,10 @@
+# Folders
+/.next
+/.cache
+/.git
+/dist
+/src/dist
+/docs
+/misc
+/node_modules
+/temp

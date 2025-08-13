@@ -1,5 +1,10 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+
 // Craft Imports
-import { siteConfig } from "@/site.config";
+import { animations, siteConfig } from "@/site.config";
 import { Section, Container, Prose } from "@/components/craft";
 import Balancer from "react-wrap-balancer";
 
@@ -7,74 +12,105 @@ import Balancer from "react-wrap-balancer";
 import Link from "next/link";
 
 // Icons
-import { File, Pen, Tag, Diamond, User, Folder } from "lucide-react";
+import { File, Pen, Tag, Diamond, User, Folder, ChevronDown } from "lucide-react";
 import { WordPressIcon } from "@/components/icons/wordpress";
 import { NextJsIcon } from "@/components/icons/nextjs";
 import { Button } from "@/components/ui/button";
 
+import { useNavbarDimensions } from "@/hooks/useNavbarDimensions";
+import { StatsBox } from "@/components/ui/stats-box";
+import { CardSimple } from "@/components/ui/card-simple";
+
 // This page is using the craft.tsx component and design system
 export default function Home() {
+  const navbarDimensions = useNavbarDimensions();
+  const [navbarHeight, setNavbarHeight] = useState('100vh');
+
+  useEffect(() => {
+    if (navbarDimensions.height < 10) return;
+    setNavbarHeight(`calc(100vh - ${navbarDimensions.height}px + 2px)`);
+  }, [navbarDimensions.height]);
+
   return (
     <Section className="py-0 md:py-0">
-      <div className="min-h-[50vh] relative">
+      <motion.div
+        className={`relative background-black overflow-hidden duration-1000 transition-all ease-in-out`}
+        style={{
+          minHeight: navbarHeight,
+        }}
+      >
         <video playsInline={true} autoPlay={true} muted={true} loop={true} className="absolute top-0 left-0 w-full h-full object-cover">
           <source type="video/mp4" src="https://spotfestival.dk/wp-content/uploads/2025/05/Web-front・Billede-og-video-2.mp4" />
           <source type="video/mp4" src="https://cms.roskilde-festival.dk/media/dlwnti3p/aftermovie-til-hjemmesidecover-1.mp4" />
         </video>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-bold italic text-white text-center" style={{
-          fontSize: "clamp(2rem, 10vw, 3rem)",
-        }}>
-          <p>Oplev vores næste event!</p>
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-bold italic text-white text-center"
+          style={{
+            fontSize: "clamp(2rem, 10vw, 3rem)",
+          }}
+        >
+          <motion.p
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            {...animations.fadeIn_moveDown({ initial: { y: -100 } })}
+          >
+            Oplev vores næste event!
+          </motion.p>
         </div>
-      </div>
+        {new Array(3).fill(0).map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: [0, 1, 0], y: 0, }}
+            transition={{
+              duration: 2,
+              delay: 0.3 * i,
+              repeat: Infinity,
+              repeatType: 'loop',
+            }}
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          >
+            <ChevronDown color="white" />
+          </motion.div>
+        ))}
+      </motion.div>
       <Container>
-        <div className="flex flex-col justify-center items-center">
-          <p className="text-2xl text-center max-w-[70vw]">
-            <Balancer>{siteConfig.site_description}</Balancer>
-          </p>
+        <div className="flex flex-col gap-10 justify-center items-center">
+          <motion.p
+            className="text-2xl text-center max-w-[70vw]"
+            {...animations.fadeIn_moveUp({ initial: { y: 30 } })}
+          >
+            <Balancer>{siteConfig.site_description_jsx}</Balancer>
+          </motion.p>
           <div className="flex flex-wrap gap-4 justify-center items-center">
-            <div className="flex-1 p-6 border rounded-lg border-[hsl(var(--primary))] mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
-              <span>23</span>
-              <span className="text-3xl">events</span>
-            </div>
-            <div className="flex-1 p-6 border rounded-lg border-[hsl(var(--primary))] mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
-              <span>5</span>
-              <span className="text-3xl">projekter</span>
-            </div>
-            <div className="flex-1 p-6 border rounded-lg border-[hsl(var(--primary))] mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
-              <span>30+</span>
-              <span className="text-3xl">artister</span>
-            </div>
-            <div className="flex-1 p-6 border rounded-lg border-[hsl(var(--primary))] mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
-              <span>1000+</span>
-              <span className="text-3xl">publikum</span>
-            </div>
+            <StatsBox animate={true} number={23} title="events" />
+            <StatsBox animate={true} number={5} title="projekter" />
+            <StatsBox animate={true} number={30} title="artister" />
+            <StatsBox animate={true} number={1000} title="publikum" />
           </div>
         </div>
 
         <div className="mt-16">
           <div className="grid gap-6 lg:grid-cols-3">
-            <Link
-              className="relative hover:scale-[1.02] transition-all aspect-[1/1]"
+            <CardSimple
+              title="Events"
+              imgUrl="https://images.pexels.com/photos/1540338/pexels-photo-1540338.jpeg"
               href="/events"
-            >
-              <div className="h-full bg-cover bg-center rounded-md brightness-50 hover:brightness-100 transition-all" style={{ backgroundImage: "url('https://images.pexels.com/photos/1540338/pexels-photo-1540338.jpeg')" }}></div>
-              <h1 className="block text-7xl text-white font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">Events</h1>
-            </Link>
-            <Link
-              className="relative hover:scale-[1.02] transition-all aspect-[1/1]"
+              animate
+            />
+            <CardSimple
+              title="Projekter"
+              imgUrl="https://images.pexels.com/photos/2388569/pexels-photo-2388569.jpeg"
               href="/projects"
-            >
-              <div className="h-full bg-cover bg-center rounded-md brightness-50 hover:brightness-100 transition-all" style={{ backgroundImage: "url('https://images.pexels.com/photos/2388569/pexels-photo-2388569.jpeg')" }}></div>
-              <h1 className="block text-7xl text-white font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">Projekter</h1>
-            </Link>
-            <Link
-              className="relative hover:scale-[1.02] transition-all aspect-[1/1]"
+              animate
+            />
+            <CardSimple
+              title="Artister"
+              imgUrl="https://images.pexels.com/photos/7586651/pexels-photo-7586651.jpeg"
               href="/artists"
-            >
-              <div className="h-full bg-cover bg-center rounded-md brightness-50 hover:brightness-100 transition-all" style={{ backgroundImage: "url('https://images.pexels.com/photos/7586651/pexels-photo-7586651.jpeg')" }}></div>
-              <h1 className="block text-7xl text-white font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">Artister</h1>
-            </Link>
+              animate
+            />
           </div>
         </div>
       </Container>
