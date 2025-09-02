@@ -15,6 +15,7 @@ export interface BaseProps {
   children?: React.ReactNode;
   className?: string;
   id?: string;
+  ref?: React.RefObject<any>;
 }
 
 // HTML props interface for dangerouslySetInnerHTML
@@ -202,8 +203,9 @@ const articleTypographyStyles = [
 ];
 
 // Components
-export const Layout = ({ children, className }: BaseProps) => (
+export const Layout = ({ children, className, ref }: BaseProps) => (
   <html
+    ref={ref}
     lang="en"
     suppressHydrationWarning
     className={cn("scroll-smooth antialiased focus:scroll-auto", className)}
@@ -212,20 +214,20 @@ export const Layout = ({ children, className }: BaseProps) => (
   </html>
 );
 
-export const Main = ({ children, className, id }: BaseProps) => (
-  <main className={cn(baseTypographyStyles, className)} id={id}>
+export const Main = ({ children, className, id, ref }: BaseProps) => (
+  <main ref={ref} className={cn(baseTypographyStyles, className)} id={id}>
     {children}
   </main>
 );
 
-export const Section = ({ children, className, id }: BaseProps) => (
-  <section className={cn(styles.layout.section, className)} id={id}>
+export const Section = ({ children, className, id, ref }: BaseProps) => (
+  <section ref={ref} className={cn(styles.layout.section, className)} id={id}>
     {children}
   </section>
 );
 
-export const Container = ({ children, className, id }: BaseProps) => (
-  <div className={cn(styles.layout.container, className)} id={id}>
+export const Container = ({ children, className, id, ref }: BaseProps) => (
+  <div ref={ref} className={cn(styles.layout.container, className)} id={id}>
     {children}
   </div>
 );
@@ -235,8 +237,10 @@ export const Article = ({
   className,
   id,
   dangerouslySetInnerHTML,
+  ref
 }: BaseProps & HTMLProps) => (
   <article
+    ref={ref}
     dangerouslySetInnerHTML={dangerouslySetInnerHTML}
     className={cn(
       articleTypographyStyles,
@@ -255,8 +259,10 @@ export const Prose = ({
   className,
   id,
   dangerouslySetInnerHTML,
+  ref
 }: BaseProps & HTMLProps) => (
   <div
+    ref={ref}
     dangerouslySetInnerHTML={dangerouslySetInnerHTML}
     className={cn(baseTypographyStyles, styles.layout.spacing, className)}
     id={id}

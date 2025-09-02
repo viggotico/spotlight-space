@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 
 // Craft Imports
@@ -20,11 +20,20 @@ import { Button } from "@/components/ui/button";
 import { useNavbarDimensions } from "@/hooks/useNavbarDimensions";
 import { StatsBox } from "@/components/ui/stats-box";
 import { CardSimple } from "@/components/ui/card-simple";
+import { Title } from "@/components/ui/title";
 
 // This page is using the craft.tsx component and design system
 export default function Home() {
   const navbarDimensions = useNavbarDimensions();
   const [navbarHeight, setNavbarHeight] = useState('100vh');
+
+  const scrollToRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    if (!scrollToRef.current) return;
+    scrollToRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   useEffect(() => {
     if (navbarDimensions.height < 10) return;
@@ -39,12 +48,14 @@ export default function Home() {
           minHeight: navbarHeight,
         }}
       >
-        <video playsInline={true} autoPlay={true} muted={true} loop={true} className="absolute top-0 left-0 w-full h-full object-cover">
+        <video
+          playsInline={true} autoPlay={true} muted={true} loop={true} className="absolute top-0 left-0 w-full h-full object-cover"
+          >
           <source type="video/mp4" src="https://spotfestival.dk/wp-content/uploads/2025/05/Web-front・Billede-og-video-2.mp4" />
           <source type="video/mp4" src="https://cms.roskilde-festival.dk/media/dlwnti3p/aftermovie-til-hjemmesidecover-1.mp4" />
         </video>
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-bold italic text-white text-center"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-bold italic uppercase text-white text-center"
           style={{
             fontSize: "clamp(2rem, 10vw, 3rem)",
           }}
@@ -55,28 +66,35 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             {...animations.fadeIn_moveDown({ initial: { y: -100 } })}
           >
-            Oplev vores næste event!
+            Udforsk events med
+            <br />artister i vækstlaget
           </motion.p>
         </div>
-        {new Array(3).fill(0).map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: [0, 1, 0], y: 0, }}
-            transition={{
-              duration: 2,
-              delay: 0.3 * i,
-              repeat: Infinity,
-              repeatType: 'loop',
-            }}
-            className="absolute bottom-4 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          >
-            <ChevronDown color="white" />
-          </motion.div>
-        ))}
+        <button onClick={handleScroll}>
+          {new Array(3).fill(0).map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: [0, 1, 0], y: 0 }}
+              transition={{
+                duration: 2,
+                delay: 0.3 * i,
+                repeat: Infinity,
+                repeatType: 'loop',
+              }}
+              className="absolute bottom-4 left-1/2 -translate-x-1/2 -translate-y-1/2"
+            >
+              <ChevronDown color="white" />
+            </motion.div>
+          ))}
+        </button>
       </motion.div>
-      <Container>
+      <Container className="relative flex flex-col justify-center items-center gap-10">
+        <div ref={scrollToRef} className="absolute w-[50%] h-[100px] left-0 top-[-100px] md:top-[-250px]" style={{
+          pointerEvents: 'none'
+        }}></div>
         <div className="flex flex-col gap-10 justify-center items-center">
+          <Title value="Velkommen til Spotlight Space!" />
           <motion.p
             className="text-2xl text-center max-w-[70vw]"
             {...animations.fadeIn_moveUp({ initial: { y: 30 } })}
@@ -84,15 +102,16 @@ export default function Home() {
             <Balancer>{siteConfig.site_description_jsx}</Balancer>
           </motion.p>
           <div className="flex flex-wrap gap-4 justify-center items-center">
-            <StatsBox animate={true} number={23} title="events" />
-            <StatsBox animate={true} number={5} title="projekter" />
-            <StatsBox animate={true} number={30} title="artister" />
-            <StatsBox animate={true} number={1000} title="publikum" />
+            <StatsBox number={23} title="events" href="/events" />
+            <StatsBox number={5} title="projekter" href="/projects" />
+            <StatsBox number={30} title="artister" href="/artists" />
+            <StatsBox number={1000} title="publikum" />
           </div>
         </div>
 
-        <div className="mt-16">
-          <div className="grid gap-6 lg:grid-cols-3">
+        <div className="mt-16 w-full flex flex-col justify-center items-center gap-6">
+          <Title value="Seneste nyt" />
+          <div className="w-full flex justify-center items-center gap-6">
             <CardSimple
               title="Events"
               imgUrl="https://images.pexels.com/photos/1540338/pexels-photo-1540338.jpeg"
@@ -109,6 +128,48 @@ export default function Home() {
               title="Artister"
               imgUrl="https://images.pexels.com/photos/7586651/pexels-photo-7586651.jpeg"
               href="/artists"
+              animate
+            />
+          </div>
+          <motion.p
+            className="text-2xl text-center max-w-[70vw]"
+            {...animations.fadeIn_moveUp({ initial: { y: 30 } })}
+          >
+            <Balancer>Tilmeld dig vores nyhedsbrev og hold dig opdateret!</Balancer>
+          </motion.p>
+          <motion.div
+            className="text-xl text-center max-w-[70vw]"
+            {...animations.fadeIn_moveUp({ initial: { y: 30 } })}
+          >
+            <div className="flex flex-col md:flex-row justify-center items-center gap-2">
+              <input type="email" placeholder="Email" className="border border-primary text-300 rounded-md p-2 w-full" />
+              <Button variant="default" type="submit" size="lg" className="text-xl">Tilmeld</Button>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="mt-16 w-full">
+          <Title value="Udforsk" />
+          <div className="grid gap-6 lg:grid-cols-3">
+            <CardSimple
+              title="Events"
+              imgUrl="https://images.pexels.com/photos/1540338/pexels-photo-1540338.jpeg"
+              href="/events"
+              variant="minimal"
+              animate
+            />
+            <CardSimple
+              title="Projekter"
+              imgUrl="https://images.pexels.com/photos/2388569/pexels-photo-2388569.jpeg"
+              href="/projects"
+              variant="minimal"
+              animate
+            />
+            <CardSimple
+              title="Artister"
+              imgUrl="https://images.pexels.com/photos/7586651/pexels-photo-7586651.jpeg"
+              href="/artists"
+              variant="minimal"
               animate
             />
           </div>

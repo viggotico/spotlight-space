@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { NavbarContent } from "@/components/layout/navbar-content";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 
 import Logo1 from "@/public/logo1_black.svg";
 
@@ -52,7 +53,8 @@ export const Navbar = ({ className, children, id }: { className?: string; childr
                     ></Image>
                 </Link>
                 {children}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4">
+                    <ThemeToggle />
                     <NavbarContent />
                 </div>
             </motion.div>

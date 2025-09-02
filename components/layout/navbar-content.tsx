@@ -48,9 +48,11 @@ export const useActiveSegment = (props: useActiveSegmentProps) => {
         if (!el) continue;
         if (pathnameClean === segmentPath || pathnameClean.startsWith(segment.path)) {
           el.classList.add("text-secondary");
+          el.classList.add("dark:text-primary");
           break;
         }
         el.classList.remove("text-secondary");
+        el.classList.remove("dark:text-primary");
       }
     }, 250);
   }, [pathname, enabled, sortedSegments]);
@@ -140,7 +142,7 @@ export function NavbarContent() {
                 key={segment.path}
                 href={segment.path}
                 onOpenChange={setOpen}
-                className="sm:text-6xl md:text-8xl hover:text-primary w-fit px-10"
+                className="text-4xl md:text-8xl hover:text-primary w-fit px-10"
               >
                 {segment.name.charAt(0).toUpperCase() + segment.name.slice(1)}
               </MobileLink>
