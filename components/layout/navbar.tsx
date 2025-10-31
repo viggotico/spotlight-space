@@ -1,42 +1,57 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { motion } from "motion/react";
-import { cn } from "@/lib/utils";
+import { motion } from 'motion/react';
+import { cn } from '@/lib/utils';
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { NavbarContent } from "@/components/layout/navbar-content";
-import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { NavbarContent } from '@/components/layout/navbar-content';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 
-import Logo1 from "@/public/logo1_black.svg";
+import Logo1 from '@/public/logo1_black.svg';
 
-export const Navbar = ({ className, children, id }: { className?: string; children?: React.ReactNode; id?: string }) => {
-    const [vw, setVw] = useState(0);
-    const [isMobile, setIsMobile] = useState(vw < 768);
+export const Navbar = ({
+    className,
+    children,
+    id,
+}: {
+    className?: string;
+    children?: React.ReactNode;
+    id?: string;
+}) => {
+    const [isMobile, setIsMobile] = useState(false);
+    const [heightValue, setHeightValue] = useState('5rem');
+    const [scrollY, setScrollY] = useState(0);
 
     useEffect(() => {
+        const handleScroll = () => {
+            setScrollY((window.scrollY / document.body.scrollHeight) * 100);
+            console.log('scrollY:', (window.scrollY / document.body.scrollHeight) * 100);
+        };
         const handleResize = () => {
-            setVw(window.innerWidth);
             setIsMobile(window.innerWidth < 768);
+            setHeightValue(window.innerWidth < 768 ? '5rem' : '10rem');
         };
         handleResize();
-        window.addEventListener("resize", handleResize);
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('scroll', handleScroll);
         return () => {
-            window.removeEventListener("resize", handleResize);
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('scroll', handleResize);
         };
     }, []);
 
     return (
         <nav
-            className={cn("sticky z-50 top-0 bg-background overflow-hidden", "border-b", className)}
+            className={cn('sticky z-50 top-0 bg-background overflow-hidden', 'border-b', className)}
             id={id}
         >
             <motion.div
-                initial={{ height: isMobile ? "5rem" : "10rem" }}
-                animate={{ height: isMobile ? "5rem" : "10rem" }}
+                initial={{ height: heightValue }}
+                animate={{ height: !isMobile && scrollY > 3 ? '5rem' : heightValue }}
                 transition={{ duration: 0.3 }}
                 id="nav-container"
                 className="relative mx-auto py-4 px-6 sm:px-8 flex justify-between items-center"
