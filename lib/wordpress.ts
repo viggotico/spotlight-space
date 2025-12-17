@@ -436,7 +436,7 @@ export async function searchAuthors(query: string): Promise<Author[]> {
 export async function revalidateWordPressData(tags: string[] = ["wordpress"]) {
   try {
     tags.forEach((tag) => {
-      revalidateTag(tag);
+      revalidateTag(tag, 'max');
     });
   } catch (error) {
     console.error("Failed to revalidate WordPress data:", error);
