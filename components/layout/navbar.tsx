@@ -8,6 +8,8 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { isMobile as isMobileHook } from '@/hooks/isMobile';
+
 import { NavbarContent } from '@/components/layout/navbar-content';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 
@@ -22,27 +24,7 @@ export const Navbar = ({
     children?: React.ReactNode;
     id?: string;
 }) => {
-    const [isMobile, setIsMobile] = useState(false);
-    const [heightValue, setHeightValue] = useState('5rem');
-    const [scrollY, setScrollY] = useState(0);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrollY((window.scrollY / document.body.scrollHeight) * 100);
-            console.log('scrollY:', (window.scrollY / document.body.scrollHeight) * 100);
-        };
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 768);
-            setHeightValue(window.innerWidth < 768 ? '5rem' : '10rem');
-        };
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-            window.removeEventListener('scroll', handleResize);
-        };
-    }, []);
+    const isMobile = isMobileHook();
 
     return (
         <nav
@@ -50,8 +32,8 @@ export const Navbar = ({
             id={id}
         >
             <motion.div
-                initial={{ height: heightValue }}
-                animate={{ height: !isMobile && scrollY > 3 ? '5rem' : heightValue }}
+                initial={{ height: isMobile.heightValue }}
+                animate={{ height: !isMobile.value && scrollY > 3 ? '5rem' : isMobile.heightValue }}
                 transition={{ duration: 0.3 }}
                 id="nav-container"
                 className="relative mx-auto py-4 px-6 sm:px-8 flex justify-between items-center"

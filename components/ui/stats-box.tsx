@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { animations } from "@/site.config";
-import NumberFlow from "@number-flow/react";
-import { motion, MotionNodeOptions } from "motion/react";
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { animations } from '@/site.config';
+import NumberFlow from '@number-flow/react';
+import { motion, MotionNodeOptions } from 'motion/react';
 
 export type StatsBoxProps = {
     number: number;
@@ -12,28 +13,54 @@ export type StatsBoxProps = {
     numberSuffix?: React.ReactNode;
     href?: string;
     newTab?: boolean;
-}
+};
 
 export const StatsBox = (props: StatsBoxProps) => {
-    const animation: MotionNodeOptions = !props.disableAnimation
-        ? animations.fadeIn_moveUp()
-        : {};
+    const [number, setNumber] = useState(0);
+    const ref = useRef<HTMLElement>(null);
+
+    const animation: MotionNodeOptions = useMemo(
+        () => (!props.disableAnimation ? animations.fadeIn_moveUp() : {}),
+        [props.disableAnimation]
+    );
 
     const component = (
         <>
             <span className="pointer-events-none">
                 {props.numberPrefix ?? ''}
-                <NumberFlow value={props.number} />
+                <NumberFlow
+                    value={number}
+                    spinTiming={{
+                        duration: number >= 500 ? 12 * (number / 10) : 80 * number,
+                        easing: 'ease-out',
+                    }}
+                />
                 {props.numberSuffix ?? ''}
             </span>
             {props.title && <span className="text-3xl pointer-events-none">{props.title}</span>}
         </>
     );
 
-    const newTab = props.newTab ? "_blank" : undefined;
+    const newTab = props.newTab ? '_blank' : undefined;
+
+    useEffect(() => {
+        if (!ref.current || !document.body) return;
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(_ => {
+                if (entries[0].intersectionRatio <= 0) return;
+                setNumber(props.number);
+                observer.disconnect();
+            });
+        });
+        observer.observe(ref.current);
+        return () => {
+            observer.disconnect();
+        };
+    }, [ref]);
 
     return props.href ? (
         <motion.a
+            ref={ref as any}
             {...animation}
             whileHover={{
                 scale: 1.03,
@@ -48,8 +75,12 @@ export const StatsBox = (props: StatsBoxProps) => {
             {component}
         </motion.a>
     ) : (
-        <motion.div {...animation} className="flex-1 p-6 border rounded-lg border-[hsl(var(--primary))] mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase">
+        <motion.div
+            ref={ref as any}
+            {...animation}
+            className="flex-1 p-6 border rounded-lg border-[hsl(var(--primary))] mt-6 flex flex-col gap-2 items-center text-7xl font-bold text-primary uppercase"
+        >
             {component}
         </motion.div>
     );
-}
+};
