@@ -18,7 +18,12 @@ export const CardSimple = (props: CardSimpleProps) => {
     const aspectRatio =
         props.variant === 'minimal'
             ? ['aspect-[1/1]', 'md:max-w-[500px]', 'lg:max-w-[700px]']
-            : ['aspect-[5/4] flex-1 mb-10', 'min-w-[300px]', 'md:min-w-[400px] md:max-w-[500px]', 'lg:min-w-[300px]'];
+            : [
+                  'aspect-[5/4] flex-1 mb-10',
+                  'min-w-[300px]',
+                  'md:min-w-[400px] md:max-w-[500px]',
+                  'lg:min-w-[300px]',
+              ];
 
     const WithLink = ({ children }: { children: React.ReactNode }) => {
         if (!props.href) return <>{children}</>;
@@ -88,9 +93,13 @@ export const CardSimple = (props: CardSimpleProps) => {
                             {props.date && (
                                 <span className="text-sm text-muted-foreground">{props.date}</span>
                             )}
-                            <h1 className="uppercase text-lg text-secondary dark:text-primary">{props.title}</h1>
+                            <h1 className="uppercase text-lg text-secondary dark:text-primary">
+                                {props.title}
+                            </h1>
                             {props.description && (
-                                <figcaption className="text-sm text-primary dark:text-foreground">{props.description}</figcaption>
+                                <figcaption className="text-sm text-foreground">
+                                    {props.description}
+                                </figcaption>
                             )}
                         </div>
                     </figure>
