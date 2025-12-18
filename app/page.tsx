@@ -105,18 +105,18 @@ export default function Home() {
                 ></div>
                 <div className="flex flex-col gap-10 justify-center items-center">
                     <Title value="Velkommen til Spotlight Space!" />
-                    <motion.p
-                        className="text-2xl text-center max-w-[70vw]"
-                        {...animations.fadeIn_moveUp({ initial: { y: 30 } })}
-                    >
-                        <Balancer>{siteConfig.site_description_jsx}</Balancer>
-                    </motion.p>
                     <div className="flex flex-wrap gap-4 justify-center items-center">
                         <StatsBox number={23} title="events" href="/events" />
                         <StatsBox number={5} title="projekter" href="/projects" />
                         <StatsBox number={30} title="artister" href="/artists" />
                         <StatsBox number={1000} title="publikum" />
                     </div>
+                    <motion.p
+                        className="text-2xl text-center max-w-[70vw]"
+                        {...animations.fadeIn_moveUp({ initial: { y: 30 } })}
+                    >
+                        <Balancer>{siteConfig.site_description_jsx}</Balancer>
+                    </motion.p>
                 </div>
 
                 <div className="mt-16 w-full flex flex-col justify-center items-center gap-6">

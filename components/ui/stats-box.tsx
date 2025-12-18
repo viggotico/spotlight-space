@@ -16,6 +16,7 @@ export type StatsBoxProps = {
 };
 
 export const StatsBox = (props: StatsBoxProps) => {
+    const [visible, setVisibility] = useState(false);
     const [number, setNumber] = useState(0);
     const ref = useRef<HTMLElement>(null);
 
@@ -31,7 +32,7 @@ export const StatsBox = (props: StatsBoxProps) => {
                 <NumberFlow
                     value={number}
                     spinTiming={{
-                        duration: number >= 500 ? 12 * (number / 10) : 80 * number,
+                        duration: visible ? (number >= 500 ? 12 * (number / 10) : 80 * number) : 0,
                         easing: 'ease-out',
                     }}
                 />
@@ -47,9 +48,13 @@ export const StatsBox = (props: StatsBoxProps) => {
         if (!ref.current || !document.body) return;
         const observer = new IntersectionObserver(entries => {
             entries.forEach(_ => {
-                if (entries[0].intersectionRatio <= 0) return;
+                if (entries[0].intersectionRatio <= 0) {
+                    setVisibility(false);
+                    setNumber(0);
+                    return;
+                }
+                setVisibility(true);
                 setNumber(props.number);
-                observer.disconnect();
             });
         });
         observer.observe(ref.current);
