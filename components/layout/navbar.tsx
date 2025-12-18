@@ -33,7 +33,7 @@ export const Navbar = ({
         >
             <motion.div
                 initial={{ height: isMobile.heightValue }}
-                animate={{ height: !isMobile.value && scrollY > 3 ? '5rem' : isMobile.heightValue }}
+                animate={{ height: !isMobile.value && isMobile.scrollY > 3 ? '5rem' : isMobile.heightValue }}
                 transition={{ duration: 0.3 }}
                 id="nav-container"
                 className="relative mx-auto py-4 px-6 sm:px-8 flex justify-between items-center"
