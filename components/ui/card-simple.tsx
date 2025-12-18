@@ -90,7 +90,7 @@ export const CardSimple = (props: CardSimpleProps) => {
                             )}
                             <h1 className="uppercase text-lg text-secondary dark:text-primary">{props.title}</h1>
                             {props.description && (
-                                <figcaption className="text-sm text-primary dark:text-secondary">{props.description}</figcaption>
+                                <figcaption className="text-sm text-primary dark:text-foreground">{props.description}</figcaption>
                             )}
                         </div>
                     </figure>
