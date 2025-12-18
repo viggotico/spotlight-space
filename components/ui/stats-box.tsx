@@ -27,7 +27,7 @@ export const StatsBox = (props: StatsBoxProps) => {
 
     const component = (
         <>
-            <span className="pointer-events-none">
+            <span className="pointer-events-none flex items-center gap-0">
                 {props.numberPrefix ?? ''}
                 <NumberFlow
                     value={number}

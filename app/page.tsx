@@ -109,7 +109,7 @@ export default function Home() {
                         <StatsBox number={23} title="events" href="/events" />
                         <StatsBox number={5} title="projekter" href="/projects" />
                         <StatsBox number={30} title="artister" href="/artists" />
-                        <StatsBox number={1000} title="publikum" />
+                        <StatsBox number={1000} title="publikum" numberSuffix="+" />
                     </div>
                     <motion.p
                         className="text-2xl text-center max-w-[70vw]"
