@@ -70,12 +70,7 @@ export default function Home() {
                         fontSize: 'clamp(2rem, 10vw, 3rem)',
                     }}
                 >
-                    <motion.p
-                        // initial={{ opacity: 0, y: -100 }}
-                        // animate={{ opacity: 1, y: 0 }}
-                        // transition={{ duration: 0.8 }}
-                        {...animations.fadeIn_moveDown({ initial: { y: -100 } })}
-                    >
+                    <motion.p {...animations.fadeIn_moveDown({ initial: { y: -100 } })}>
                         Udforsk events med
                         <br />
                         artister i vækstlaget
@@ -125,6 +120,28 @@ export default function Home() {
                 </div>
 
                 <div className="mt-16 w-full flex flex-col justify-center items-center gap-6">
+                    <Title value="Upcoming" />
+                    <motion.p
+                        className="text-2xl text-center max-w-[70vw]"
+                        {...animations.fadeIn_moveUp({ initial: { y: 30 } })}
+                    >
+                        <Balancer>Ingen upcoming events eller projekter lige nu.</Balancer>
+                        <Balancer>
+                            Følg med i vores aktiviteter på{' '}
+                            <a
+                                className='text-primary'
+                                href="https://www.instagram.com/spotlight_space/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                @spotlight_space
+                            </a>
+                            !
+                        </Balancer>
+                    </motion.p>
+                </div>
+
+                <div className="mt-16 w-full flex flex-col justify-center items-center gap-6">
                     <Title value="Seneste nyt" />
                     <div className="w-full flex flex-wrap justify-center items-start gap-6">
                         <CardSimple
@@ -151,7 +168,7 @@ export default function Home() {
                             title="Women's Day"
                             description="Den 8. marts fejrer vi alle kvinder med en nat fyldt med power, bouncy beats og fællesskab!"
                         />
-                        <CardSimple
+                        {/* <CardSimple
                             animate
                             imgUrl="assets/events/spotlight.space_1766094281967.jpeg"
                             href="/events"
@@ -174,7 +191,7 @@ export default function Home() {
                             date="30 November 2024"
                             title="Boiler Room - Hip-Hop x Rage Rap Special"
                             description="Er du klar til at opleve en nat ud over det sædvanlige?"
-                        />
+                        /> */}
                     </div>
                 </div>
 
