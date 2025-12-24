@@ -37,7 +37,21 @@ export const CardSimple = (props: CardSimpleProps) => {
     };
 
     const WithAnimation = ({ children }: { children: React.ReactNode }) => {
-        if (!props.animate) return <div className={cn('relative', ...aspectRatio)}>{children}</div>;
+        if (!props.animate)
+            return (
+                <motion.div
+                    className={cn('relative', ...aspectRatio)}
+                    whileHover={{
+                        scale: 1.02,
+                        filter: `brightness(${props.variant === 'minimal' ? 1.5 : 0.5})`,
+                        transition: {
+                            duration: 0.2,
+                        },
+                    }}
+                >
+                    {children}
+                </motion.div>
+            );
         return (
             <motion.div
                 className={cn('relative', ...aspectRatio, props.className)}
