@@ -45,6 +45,7 @@ const ani_fadeIn = (props?: AnimationProps) => {
             ...props?.[trigger],
             transition: { duration: props?.duration || 0.8, ...props?.[trigger]?.transition },
         },
+        viewport: { once: true },
     } as MotionNodeOptions;
 };
 
@@ -58,6 +59,7 @@ const ani_fadeIn_moveUp = (props?: AnimationProps) => {
             ...props?.[trigger],
             transition: { duration: props?.duration || 0.8, ...props?.[trigger]?.transition },
         },
+        viewport: { once: true },
     } as MotionNodeOptions;
 };
 
@@ -71,6 +73,7 @@ const ani_fadeIn_moveDown = (props?: AnimationProps) => {
             ...props?.[trigger],
             transition: { duration: props?.duration || 0.8, ...props?.[trigger]?.transition },
         },
+        viewport: { once: true },
     } as MotionNodeOptions;
 };
 

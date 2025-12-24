@@ -2,7 +2,7 @@ export const menuEntries = {
     hjem: '/',
     events: '/events',
     galleri: '/gallery',
-    'om os': '/om-os',
-    praktisk: '/praktisk',
-    kontakt: '/kontakt',
+    'om os': '/about-us',
+    praktisk: '/practical',
+    'bliv frivillig': '/volunteer',
 };

@@ -31,6 +31,7 @@ export const StatsBox = (props: StatsBoxProps) => {
                 {props.numberPrefix ?? ''}
                 <NumberFlow
                     value={number}
+                    format={{ roundingIncrement: 1 }}
                     spinTiming={{
                         duration: visible ? (number >= 500 ? 12 * (number / 10) : 80 * number) : 0,
                         easing: 'ease-out',

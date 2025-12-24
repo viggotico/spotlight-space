@@ -17,6 +17,7 @@ import { WordPressIcon } from '@/components/icons/wordpress';
 import { NextJsIcon } from '@/components/icons/nextjs';
 import { Button } from '@/components/ui/button';
 
+import { useMobile } from '@/hooks/useMobile';
 import { useNavbarDimensions } from '@/hooks/useNavbarDimensions';
 import { StatsBox } from '@/components/ui/stats-box';
 import { CardSimple } from '@/components/ui/card-simple';
@@ -24,6 +25,7 @@ import { Title } from '@/components/ui/title';
 
 // This page is using the craft.tsx component and design system
 export default function Home() {
+    const mobile = useMobile();
     const navbarDimensions = useNavbarDimensions();
     const [navbarHeight, setNavbarHeight] = useState('100vh');
 
@@ -42,7 +44,7 @@ export default function Home() {
 
     return (
         <Section className="py-0 md:py-0">
-            <motion.div
+            <div
                 className={`relative background-black overflow-hidden duration-1000 transition-all ease-in-out`}
                 style={{
                     minHeight: navbarHeight,
@@ -64,12 +66,7 @@ export default function Home() {
                         src="https://cms.roskilde-festival.dk/media/dlwnti3p/aftermovie-til-hjemmesidecover-1.mp4"
                     />
                 </video>
-                <div
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-bold italic uppercase text-white text-center"
-                    style={{
-                        fontSize: 'clamp(2rem, 10vw, 3rem)',
-                    }}
-                >
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl lg:text-5xl font-bold italic uppercase text-white text-center">
                     <motion.p {...animations.fadeIn_moveDown({ initial: { y: -100 } })}>
                         Udforsk events med
                         <br />
@@ -94,7 +91,7 @@ export default function Home() {
                         </motion.div>
                     ))}
                 </button>
-            </motion.div>
+            </div>
             <Container className="relative flex flex-col justify-center items-center gap-10">
                 <div
                     ref={scrollToRef}
@@ -122,19 +119,18 @@ export default function Home() {
                 <div className="mt-16 w-full flex flex-col justify-center items-center gap-6">
                     <Title value="Upcoming" />
                     <motion.p
-                        className="text-2xl text-center max-w-[70vw]"
+                        className="text-2xl text-center text-muted-foreground italic max-w-[70vw]"
                         {...animations.fadeIn_moveUp({ initial: { y: 30 } })}
                     >
                         <Balancer>Ingen upcoming events eller projekter lige nu.</Balancer>
                         <Balancer>
                             Følg med i vores aktiviteter på{' '}
                             <a
-                                className='text-primary'
-                                href="https://www.instagram.com/spotlight_space/"
+                                className="text-primary"
+                                href="https://www.instagram.com/spotlight.space/"
                                 target="_blank"
-                                rel="noopener noreferrer"
                             >
-                                @spotlight_space
+                                @spotlight.space
                             </a>
                             !
                         </Balancer>
@@ -143,9 +139,9 @@ export default function Home() {
 
                 <div className="mt-16 w-full flex flex-col justify-center items-center gap-6">
                     <Title value="Seneste nyt" />
-                    <div className="w-full flex flex-wrap justify-center items-start gap-6">
+                    <div className="w-full grid grid-cols-2 lg:grid-cols-3 justify-center items-start gap-6">
                         <CardSimple
-                            animate
+                            // animate
                             imgUrl="assets/events/spotlight.space_1766089963551.jpeg"
                             href="/events"
                             date="3 July 2025"
@@ -153,95 +149,53 @@ export default function Home() {
                             description="SKATTEJAGT, TROMMER & DANS PÅ GRUS!"
                         />
                         <CardSimple
-                            animate
+                            // animate
                             imgUrl="assets/events/sydhavnsboelgen_1766093666833.jpeg"
                             href="/events"
                             date="26 March 2025"
-                            title="Sydhavnsbølgen | Boullion #3"
+                            title={`${mobile.isMobile ? 'Sydhavns-bølgen' : 'Sydhavnsbølgen'} | Boullion #3`}
                             description="Music • Soup • Drinks • Fashion • Radio"
                         />
                         <CardSimple
-                            animate
+                            // animate
                             imgUrl="assets/events/spotlight.space_1766094146270.jpeg"
                             href="/events"
                             date="8 March 2025"
                             title="Women's Day"
                             description="Den 8. marts fejrer vi alle kvinder med en nat fyldt med power, bouncy beats og fællesskab!"
                         />
-                        {/* <CardSimple
-                            animate
-                            imgUrl="assets/events/spotlight.space_1766094281967.jpeg"
-                            href="/events"
-                            date="7 February 2025"
-                            title="Underground Sounds"
-                            description="Oplev en aften, hvor melodisk og soulful rap møder rå energi fra undergrunden."
-                        />
-                        <CardSimple
-                            animate
-                            imgUrl="assets/events/afrobeats-x-mas-edition.png"
-                            href="/events"
-                            date="7 December 2024"
-                            title="Afrobeats (X-mas Edition)"
-                            description="Kom forbi @casav58 (vestergade 58) nu på lørdag når DJ Danny, DJ Clemo & DJ Koko tryllebinder gulvet med bouncy rytmer fra afrobeats hele natten!"
-                        />
-                        <CardSimple
-                            animate
-                            imgUrl="assets/events/spotlight.space_1766094034226.jpeg"
-                            href="/events"
-                            date="30 November 2024"
-                            title="Boiler Room - Hip-Hop x Rage Rap Special"
-                            description="Er du klar til at opleve en nat ud over det sædvanlige?"
-                        /> */}
                     </div>
                 </div>
 
-                <div className="mt-16 w-full flex flex-col justify-center items-center gap-6">
-                    <motion.p
-                        className="text-2xl text-center max-w-[70vw]"
-                        {...animations.fadeIn_moveUp({ initial: { y: 30 } })}
-                    >
-                        <Balancer>Tilmeld dig vores nyhedsbrev og hold dig opdateret!</Balancer>
-                    </motion.p>
-                    <motion.div
-                        className="text-xl text-center max-w-[70vw]"
-                        {...animations.fadeIn_moveUp({ initial: { y: 30 } })}
-                    >
-                        <div className="flex flex-col md:flex-row justify-center items-center gap-2">
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                className="border border-primary text-300 rounded-md p-2 w-full"
-                            />
-                            <Button variant="default" type="submit" size="lg" className="text-xl">
-                                Tilmeld
-                            </Button>
-                        </div>
-                    </motion.div>
-                </div>
+                <Link href="/events">
+                    <Button variant="default" type="submit" size="lg" className="text-xl">
+                        Se alle
+                    </Button>
+                </Link>
 
                 <div className="mt-16 w-full">
                     <Title value="Udforsk" />
-                    <div className="grid gap-6 lg:grid-cols-3">
+                    <div className="w-full grid gap-6 grid-cols-2 lg:grid-cols-3 justify-center items-start">
                         <CardSimple
+                            // animate
                             title="Events"
                             imgUrl="https://images.pexels.com/photos/1540338/pexels-photo-1540338.jpeg"
                             href="/events"
                             variant="minimal"
-                            animate
                         />
                         <CardSimple
-                            title="Projekter"
+                            // animate
+                            title="Galleri"
                             imgUrl="https://images.pexels.com/photos/2388569/pexels-photo-2388569.jpeg"
-                            href="/projects"
+                            href="/gallery"
                             variant="minimal"
-                            animate
                         />
                         <CardSimple
+                            // animate
                             title="Artister"
                             imgUrl="https://images.pexels.com/photos/7586651/pexels-photo-7586651.jpeg"
-                            href="/artists"
+                            href="/#"
                             variant="minimal"
-                            animate
                         />
                     </div>
                 </div>

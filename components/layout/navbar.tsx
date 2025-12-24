@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { isMobile as isMobileHook } from '@/hooks/isMobile';
+import { useMobile } from '@/hooks/useMobile';
 
 import { NavbarContent } from '@/components/layout/navbar-content';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
@@ -24,16 +24,17 @@ export const Navbar = ({
     children?: React.ReactNode;
     id?: string;
 }) => {
-    const isMobile = isMobileHook();
-
+    const mobile = useMobile();
     return (
         <nav
             className={cn('sticky z-50 top-0 bg-background overflow-hidden', 'border-b', className)}
             id={id}
         >
             <motion.div
-                initial={{ height: isMobile.heightValue }}
-                animate={{ height: !isMobile.value && isMobile.scrollY > 3 ? '5rem' : isMobile.heightValue }}
+                initial={{ height: mobile.heightValue }}
+                animate={{
+                    height: !mobile.isMobile && mobile.scrollY > 3 ? '5rem' : mobile.heightValue,
+                }}
                 transition={{ duration: 0.3 }}
                 id="nav-container"
                 className="relative mx-auto py-4 px-6 sm:px-8 flex justify-between items-center"
@@ -46,7 +47,7 @@ export const Navbar = ({
                         src={Logo1}
                         alt="Logo"
                         loading="eager"
-                        className="dark:invert h-full w-fit"
+                        className="dark:invert dark:brightness-50 h-full w-fit"
                     ></Image>
                 </Link>
                 {children}

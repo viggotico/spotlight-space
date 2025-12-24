@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { menuEntries } from "@/menu.config";
@@ -18,7 +18,7 @@ import { NavbarSegmentData } from "./navbar-types";
 import { useActiveSegment } from "./navbar-content";
 
 export const Footer = () => {
-    const [segments] = React.useState(
+    const [segments] = useState(
         Object.entries(menuEntries).map(([name, href], index) => ({
             name,
             id: `menu-footer-item-${index}-${name.replace(/\ /g, "-")}`,
@@ -38,7 +38,7 @@ export const Footer = () => {
                                 id={segment.id}
                                 key={segment.path}
                                 href={segment.path}
-                                className="hover:underline underline-offset-4 w-fit"
+                                className="w-fit"
                             >
                                 {segment.name.charAt(0).toUpperCase() + segment.name.slice(1)}
                             </Link>
@@ -48,10 +48,9 @@ export const Footer = () => {
                         {[
                             'Presse',
                             'Sponsors',
-                            'Bliv frivillig',
                         ].map((x) => (
                             <Link
-                                className="hover:underline underline-offset-4 w-fit"
+                                className="w-fit"
                                 key={x}
                                 href={'#'}
                             >
@@ -77,7 +76,7 @@ export const Footer = () => {
                             <Image
                                 src={Logo2}
                                 alt="Logo"
-                                className="dark:invert"
+                                className="dark:invert dark:brightness-50"
                                 width={300}
                             ></Image>
                         </Link>
@@ -87,8 +86,8 @@ export const Footer = () => {
                     </div>
                 </Container>
                 <Container className="border-t not-prose flex flex-col md:flex-row md:gap-2 gap-6 justify-between md:items-center">
-                    <ThemeToggle />
-                    <p className="text-muted-foreground">
+                    <ThemeToggle className="dark:bg-muted hover:dark:bg-primary" />
+                    <p className="text-muted-foreground text-sm">
                         &copy; Spotlight Space. All rights reserved.
                         2025.
                     </p>

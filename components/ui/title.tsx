@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
-import { animations } from "@/site.config";
-import { motion, MotionNodeOptions } from "motion/react";
+import { cn } from '@/lib/utils';
+import { TitleClientWrapper } from './title-client-wrapper';
+import Link from 'next/link';
 
 export type TitleProps = {
     value: React.ReactNode;
@@ -9,53 +9,48 @@ export type TitleProps = {
     newTab?: boolean;
     margin?: string;
     className?: string;
-}
+};
 
 export const Title = (props: TitleProps) => {
-    const animation: MotionNodeOptions = !props.disableAnimation
-        ? animations.fadeIn_moveUp()
-        : {};
-
     const classNames = props.className ? [props.className] : [];
-    const margin = props.margin ?? "my-10";
-    const newTab = props.newTab ? "_blank" : undefined;
+    const margin = props.margin ?? 'my-10';
+    const newTab = props.newTab ? '_blank' : undefined;
 
     const component = (
         <h1
             className={cn(
-                "mx-auto text-4xl md:text-8xl text-center w-fit md:max-w-[50vw] uppercase text-primary",
-                ...classNames,
+                'mx-auto text-4xl md:text-6xl lg:text-8xl text-center w-fit md:max-w-[600px] lg:max-w-[1000px] uppercase text-primary',
+                ...classNames
             )}
-            style={{ fontWeight: "800" }}
+            style={{ fontWeight: '800' }}
         >
             {props.value}
         </h1>
     );
 
-    return (
-        <motion.div
-            className={cn("w-full", margin)}
-            {...animation}
-            whileHover={props.href && {
-                scale: 1.03,
-                rotate: 1.7,
-                opacity: 0.5,
-                transition: { duration: 0.1 },
-            }}
+    return props.disableAnimation ? (
+        <div className={cn('w-full', margin)}>
+            {props.href ? (
+                <Link className={cn('w-fit')} href={props.href} target={newTab}>
+                    {component}
+                </Link>
+            ) : (
+                component
+            )}
+        </div>
+    ) : (
+        <TitleClientWrapper
+            disableAnimation={props.disableAnimation}
+            href={props.href}
+            margin={margin}
         >
-            {
-                props.href ? (
-                    <a
-                        className={cn("w-fit")}
-                        href={props.href}
-                        target={newTab}
-                    >
-                        {component}
-                    </a>
-                ) : (
-                    component
-                )
-            }
-        </motion.div>
+            {props.href ? (
+                <Link className={cn('w-fit')} href={props.href} target={newTab}>
+                    {component}
+                </Link>
+            ) : (
+                component
+            )}
+        </TitleClientWrapper>
     );
-}
+};

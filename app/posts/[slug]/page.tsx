@@ -90,7 +90,7 @@ export default async function Page({
               Published {date} by{" "}
               {author.name && (
                 <span>
-                  <a href={`/posts/?author=${author.id}`}>{author.name}</a>{" "}
+                  <Link href={`/posts/?author=${author.id}`}>{author.name}</Link>{" "}
                 </span>
               )}
             </h5>

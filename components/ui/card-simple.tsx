@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import { animations } from '@/site.config';
 import { motion } from 'motion/react';
@@ -6,6 +8,9 @@ import Link from 'next/link';
 export type CardSimpleProps = {
     title: React.ReactNode;
     imgUrl?: string;
+    className?: string;
+    imgClass?: string;
+    titleClass?: string;
     description?: string;
     date?: string;
     href?: string;
@@ -16,19 +21,16 @@ export type CardSimpleProps = {
 
 export const CardSimple = (props: CardSimpleProps) => {
     const aspectRatio =
-        props.variant === 'minimal'
-            ? ['aspect-[1/1]', 'md:max-w-[500px]', 'lg:max-w-[700px]']
-            : [
-                  'aspect-[5/4] flex-1 mb-10',
-                  'min-w-[300px]',
-                  'md:min-w-[400px] md:max-w-[500px]',
-                  'lg:min-w-[300px]',
-              ];
+        props.variant === 'minimal' ? ['aspect-[1/1]', 'w-full'] : ['aspect-[5/4] mb-10', 'w-full'];
 
     const WithLink = ({ children }: { children: React.ReactNode }) => {
         if (!props.href) return <>{children}</>;
         return (
-            <Link href={props.href} target={props.target}>
+            <Link
+                href={props.href}
+                target={props.target}
+                className={props.animate ? undefined : props.className}
+            >
                 {children}
             </Link>
         );
@@ -38,8 +40,8 @@ export const CardSimple = (props: CardSimpleProps) => {
         if (!props.animate) return <div className={cn('relative', ...aspectRatio)}>{children}</div>;
         return (
             <motion.div
-                className={cn('relative', ...aspectRatio)}
-                {...animations.fadeIn_moveUp({
+                className={cn('relative', ...aspectRatio, props.className)}
+                {...animations[props.variant === 'minimal' ? 'fadeIn' : 'fadeIn_moveUp']({
                     whileInView: {
                         transition: {
                             duration: 0.8,
@@ -66,14 +68,22 @@ export const CardSimple = (props: CardSimpleProps) => {
                 return (
                     <>
                         <div
-                            className="h-full bg-cover bg-center rounded-md brightness-50 pointer-events-none"
+                            className={cn(
+                                'h-full bg-cover bg-center rounded-md brightness-50 pointer-events-none',
+                                props.imgClass
+                            )}
                             style={{
                                 backgroundImage: props.imgUrl
                                     ? `url('${props.imgUrl}')`
                                     : undefined,
                             }}
                         />
-                        <h1 className="block text-4xl md:text-7xl text-wrap text-white font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                        <h1
+                            className={cn(
+                                'block text-center text-4xl md:text-5xl lg:text-6xl text-wrap text-white font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none',
+                                props.titleClass
+                            )}
+                        >
                             {props.title}
                         </h1>
                     </>

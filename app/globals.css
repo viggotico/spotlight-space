@@ -15,19 +15,24 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
 
-    --primary: 328 89% 61%;         /* Electric Rose */
+    --primary: 328 89% 61%;
+    /* Electric Rose */
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 228 95% 48%;       /* Deep Pulse */
+    --secondary: 228 95% 48%;
+    /* Deep Pulse */
     --secondary-foreground: 0 0% 98%;
 
-    --accent: 134 33% 42%;          /* Urban Moss */
+    --accent: 134 33% 42%;
+    /* Urban Moss */
     --accent-foreground: 0 0% 98%;
 
-    --highlight: 54 95% 48%;        /* Flashbeam Yellow */
+    --highlight: 54 95% 48%;
+    /* Flashbeam Yellow */
     --highlight-foreground: 0 0% 9%;
 
-    --destructive: 6 66% 54%;       /* Brickfire */
+    --destructive: 6 66% 54%;
+    /* Brickfire */
     --destructive-foreground: 0 0% 98%;
 
     --muted: 0 0% 96.1%;
@@ -53,19 +58,24 @@
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 328 89% 61%;         /* Electric Rose */
+    --primary: 328 89% 61%;
+    /* Electric Rose */
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 228 95% 48%;       /* Deep Pulse */
+    --secondary: 228 95% 48%;
+    /* Deep Pulse */
     --secondary-foreground: 0 0% 98%;
 
-    --accent: 134 33% 42%;          /* Urban Moss */
+    --accent: 134 33% 42%;
+    /* Urban Moss */
     --accent-foreground: 0 0% 98%;
 
-    --highlight: 54 95% 48%;        /* Flashbeam Yellow */
+    --highlight: 54 95% 48%;
+    /* Flashbeam Yellow */
     --highlight-foreground: 0 0% 9%;
 
-    --destructive: 6 66% 54%;       /* Brickfire */
+    --destructive: 6 66% 54%;
+    /* Brickfire */
     --destructive-foreground: 0 0% 98%;
 
     --muted: 0 0% 14.9%;
@@ -84,6 +94,11 @@
 
   body {
     @apply bg-background text-foreground;
+    font-size: 1.5rem;
+  }
+
+  a:hover {
+    color: hsl(var(--secondary));
   }
 }
 
@@ -94,6 +109,7 @@
 }
 
 @layer utilities {
+
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -106,4 +122,52 @@
     scrollbar-width: none;
     /* Firefox */
   }
+}
+
+.react-multiple-carousel__arrow {
+  z-index: 2 !important;
+  opacity: 0.7 !important;
+  background-color: hsl(var(--secondary)) !important;
+}
+
+.react-multiple-carousel__arrow:hover {
+  opacity: 1 !important;
+  background-color: hsl(var(--primary)) !important;
+}
+
+.light .react-multiple-carousel__arrow {
+  opacity: 0.7 !important;
+  background-color: hsl(var(--primary)) !important;
+}
+
+.light .react-multiple-carousel__arrow:hover {
+  opacity: 1 !important;
+  background-color: hsl(var(--secondary)) !important;
+}
+
+.react-multi-carousel-dot button {
+  border: unset !important;
+  background: hsl(var(--muted)) !important;
+}
+
+.light .react-multi-carousel-dot button {
+  background: hsl(var(--muted)) !important;
+  filter: brightness(0.8);
+}
+
+.react-multi-carousel-dot--active button {
+  background: hsl(var(--primary)) !important;
+}
+
+.light .react-multi-carousel-dot--active button {
+  background: hsl(var(--secondary)) !important;
+}
+
+.react-multi-carousel-dot button:hover {
+  border: unset !important;
+  background: hsl(var(--secondary)) !important;
+}
+
+.light .react-multi-carousel-dot button:hover {
+  background: hsl(var(--primary)) !important;
 }
