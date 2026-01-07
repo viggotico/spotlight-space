@@ -60,7 +60,7 @@ function getUrl(path: string, query?: Record<string, any>) {
 const defaultFetchOptions: FetchOptions = {
     next: {
         tags: ['wordpress'],
-        revalidate: 3600, // Revalidate every hour by default
+        revalidate: 2, // Revalidate every hour by default
     },
     headers: {
         Accept: 'application/json',
@@ -452,7 +452,12 @@ export async function searchCategories(query: string): Promise<Category[]> {
         search: query,
         per_page: 100,
     });
-    return wordpressFetch<Category[]>(url);
+    return wordpressFetch<Category[]>(url, {
+        next: {
+            ...defaultFetchOptions.next,
+            tags: ['wordpress', 'categories', JSON.stringify(query ?? {})],
+        },
+    });
 }
 
 // Helper function to search across tags
@@ -461,7 +466,12 @@ export async function searchTags(query: string): Promise<Tag[]> {
         search: query,
         per_page: 100,
     });
-    return wordpressFetch<Tag[]>(url);
+    return wordpressFetch<Tag[]>(url, {
+        next: {
+            ...defaultFetchOptions.next,
+            tags: ['wordpress', 'tags', JSON.stringify(query ?? {})],
+        },
+    });
 }
 
 // Helper function to search across authors
@@ -470,7 +480,12 @@ export async function searchAuthors(query: string): Promise<Author[]> {
         search: query,
         per_page: 100,
     });
-    return wordpressFetch<Author[]>(url);
+    return wordpressFetch<Author[]>(url, {
+        next: {
+            ...defaultFetchOptions.next,
+            tags: ['wordpress', 'users', JSON.stringify(query ?? {})],
+        },
+    });
 }
 
 // Helper function to revalidate WordPress data
