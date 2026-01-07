@@ -3,26 +3,50 @@ import { Section, Container } from '@/components/craft';
 import { CardSimple } from '@/components/ui/card-simple';
 import { Carousel } from '@/components/ui/carousel';
 import { Title } from '@/components/ui/title';
-import { sanatizeContent } from '@/lib/utils';
-import { getPostBySlug } from '@/lib/wordpress';
 import Balancer from 'react-wrap-balancer';
 
-export default async function Events() {
-    const introText = await getPostBySlug('events-intro-text');
-    const projectsText = await getPostBySlug('events-projects-text');
-    const concertsText = await getPostBySlug('events-concerts-text');
-
+export default function Events() {
     return (
         <Section className="py-0 md:py-0">
             <Container className="relative flex flex-col justify-center items-center gap-10">
                 <div className="w-full flex flex-col justify-center items-center gap-6">
                     <div className="w-full mb-16">
                         <article className="text-center mb-16">
-                            <Balancer dangerouslySetInnerHTML={{ __html: sanatizeContent(introText.content.rendered) }}>
-                            </Balancer>
+                            <p>
+                                <Balancer>
+                                    Vi caster løbende deltagere til vores næste event eller store projekt, følg
+                                    med inde på vores instagram{' '}
+                                    <a
+                                        className="text-primary"
+                                        href="https://www.instagram.com/spotlight.space/"
+                                        target="_blank"
+                                    >
+                                        @spotlight.space
+                                    </a>{' '}
+                                    og få en chance i at deltage!
+                                    <br />
+                                    <br />
+                                    Hvis du er interesseret i at hjælpe os som frivillig kan du læse mere{' '}
+                                    <a
+                                        className="text-primary"
+                                        href="/volunteer"
+                                    >
+                                        her
+                                    </a>
+                                    .
+                                </Balancer>
+                            </p>
                             <Title value="Projekter" />
-                            <Balancer dangerouslySetInnerHTML={{ __html: sanatizeContent(projectsText.content.rendered) }}>
-                            </Balancer>
+                            <p>
+                                <Balancer>
+                                    Her kan du se alle vores projekter.
+                                    <br />
+                                    Vores projekter foregår typisk over flere dage, hvor vi har
+                                    fokus på artister i vækstlaget.
+                                    <br />
+                                    Du kan forvente mindst 2 store projekter om året.
+                                </Balancer>
+                            </p>
                         </article>
                         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start">
                             <CardSimple
@@ -53,8 +77,13 @@ export default async function Events() {
                     </div>
                     <article className="text-center mb-16">
                         <Title value="Koncerter" />
-                        <Balancer dangerouslySetInnerHTML={{ __html: sanatizeContent(concertsText.content.rendered) }}>
-                        </Balancer>
+                        <p>
+                            <Balancer>
+                                Alle afholdte koncerter til dags dato - der er flere at komme!
+                                <br />
+                                Du kan forvente mindst 1 koncert om måneden.
+                            </Balancer>
+                        </p>
                     </article>
                     <div className="w-full grid grid-cols-2 lg:grid-cols-3 justify-center items-start gap-6 mb-16">
                         <CardSimple

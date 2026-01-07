@@ -1,0 +1,27 @@
+public url:
+- https://spotlight-space.deltabox.studio
+
+admin dashboard:
+- https://wordpress-production-311e.up.railway.app/wp-admin/
+
+inspi:
+- https://www.aarhusvolume.dk/
+- https://www.smukfest.dk/
+- https://spotfestival.dk/
+- https://www.roskilde-festival.dk/
+
+
+domæne og hosting:
+- spotlightspace.dk på Simply.com
+- victor skal sætte dns records op efter oprettelse
+- hosting på railway.app (Hobby plan $5/m + sætte usage limit)
+- automatisk backup
+
+til hjemmeside:
+- blikfang video/slideshow på forsiden
+- samarbejdspartner logoer (ALLE dem i har arbejdet sammen med)
+- Berlin exchange event (søge fonde slut august)
+
+
+dele logoer på drev
+- GRAFIK mappen

@@ -1,32 +1,29 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { ThemeToggle } from '@/components/theme/theme-toggle';
-import { menuEntries } from '@/menu.config';
-import { Section, Container } from '@/components/craft';
-import { siteConfig } from '@/site.config';
+import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { menuEntries } from "@/menu.config";
+import { Section, Container } from "@/components/craft";
+import { siteConfig } from "@/site.config";
 
-import Balancer from 'react-wrap-balancer';
-import Logo2 from '@/public/logo2_black.svg';
-import Image from 'next/image';
-import Link from 'next/link';
+import Balancer from "react-wrap-balancer";
+import Logo2 from "@/public/logo2_black.svg";
+import Image from "next/image";
+import Link from "next/link";
 
-import { SocialIcons } from '@/components/icons/socials';
+import { SocialIcons } from "@/components/icons/socials";
 
-import { NavbarSegmentData } from './navbar-types';
-import { useActiveSegment } from './navbar-content';
+import { NavbarSegmentData } from "./navbar-types";
+import { useActiveSegment } from "./navbar-content";
 
-export const Footer = ({ site_description }: { site_description: string }) => {
+export const Footer = () => {
     const [segments] = useState(
-        Object.entries(menuEntries).map(
-            ([name, href], index) =>
-                ({
-                    name,
-                    id: `menu-footer-item-${index}-${name.replace(/\ /g, '-')}`,
-                    path: href,
-                }) as NavbarSegmentData
-        )
+        Object.entries(menuEntries).map(([name, href], index) => ({
+            name,
+            id: `menu-footer-item-${index}-${name.replace(/\ /g, "-")}`,
+            path: href,
+        } as NavbarSegmentData))
     );
 
     useActiveSegment({ segments, enabled: true });
@@ -48,8 +45,15 @@ export const Footer = ({ site_description }: { site_description: string }) => {
                         ))}
                     </div>
                     <div className="flex flex-col gap-2">
-                        {['Presse', 'Sponsors'].map(x => (
-                            <Link className="w-fit" key={x} href={'#'}>
+                        {[
+                            'Presse',
+                            'Sponsors',
+                        ].map((x) => (
+                            <Link
+                                className="w-fit"
+                                key={x}
+                                href={'#'}
+                            >
                                 {x}
                             </Link>
                         ))}
@@ -76,18 +80,16 @@ export const Footer = ({ site_description }: { site_description: string }) => {
                                 width={300}
                             ></Image>
                         </Link>
-                        <div
-                            className="flex flex-col gap-4 text-2xl *:m-0"
-                            dangerouslySetInnerHTML={{
-                                __html: site_description,
-                            }}
-                        ></div>
+                        <p className="text-2xl">
+                            <Balancer>{siteConfig.site_description_jsx}</Balancer>
+                        </p>
                     </div>
                 </Container>
                 <Container className="border-t not-prose flex flex-col md:flex-row md:gap-2 gap-6 justify-between md:items-center">
                     <ThemeToggle className="dark:bg-muted hover:dark:bg-primary" />
                     <p className="text-muted-foreground text-sm">
-                        &copy; Spotlight Space. All rights reserved. 2025.
+                        &copy; Spotlight Space. All rights reserved.
+                        2025.
                     </p>
                 </Container>
             </Section>

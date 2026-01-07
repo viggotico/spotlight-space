@@ -3,10 +3,7 @@ import { SocialIcons } from '@/components/icons/socials';
 import { Separator } from '@/components/ui/separator';
 
 import { Title } from '@/components/ui/title';
-import { sanatizeContent } from '@/lib/utils';
-import { getPostBySlug } from '@/lib/wordpress';
 import { Mail } from 'lucide-react';
-import Balancer from 'react-wrap-balancer';
 
 type ProfileCardProps = {
     name: string;
@@ -66,20 +63,18 @@ const ProfileCard = ({ name, title, avatarUrl, email, instagram }: ProfileCardPr
     );
 };
 
-export default async function AboutUs() {
-    const teamText = await getPostBySlug('about-us-team-text');
-
+export default function AboutUs() {
     return (
         <Section className="py-0 md:py-0">
             <Container className="relative flex flex-col justify-center items-center gap-10">
                 <div className="w-full flex flex-col justify-center items-center gap-16 mb-16">
                     <article className="text-center">
                         <Title value="Teamet" />
-                        <Balancer
-                            dangerouslySetInnerHTML={{
-                                __html: sanatizeContent(teamText.content.rendered),
-                            }}
-                        ></Balancer>
+                        <p className='max-w-[800px] mx-auto'>
+                            Bag Spotlight Space står et dedikeret hold af seks personer, der hver
+                            især bidrager med specialiseret viden inden for SoMe, økonomi,
+                            kundehåndtering, support og visuel produktion.
+                        </p>
                         <br />
                         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start gap-10">
                             <ProfileCard
@@ -153,7 +148,7 @@ export default async function AboutUs() {
                         </p>
                     </article>
                     <Separator />
-                    <div className="flex flex-col justify-center items-center gap-16 max-w-[800px]">
+                    <div className='flex flex-col justify-center items-center gap-16 max-w-[800px]'>
                         <article className="text-center">
                             <Title value="Hvad er Spotlight Space?" />
                             <h2 className="font-medium italic mb-3">
